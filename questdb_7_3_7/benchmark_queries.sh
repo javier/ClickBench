@@ -63,11 +63,12 @@ results=`cat log.txt | grep -P '"timings"|"error"|null' | sed -r -e 's/^.*"error
 # Remove the very last comma of the `results` variable
 results=${results::-1}
 current_date=$(date +"%Y-%m-%d")
+instance_type=`ec2metadata --instance-type`
 
 echo "{
     \"system\": \"QuestDB 7_3_7\",
     \"date\": \"$current_date\",
-    \"machine\": \"m6a.4xlarge, 250gb gp3 ZFS\",
+    \"machine\": \"$instance_type, 250gb gp3 ZFS\",
     \"cluster_size\": 1,
     \"comment\": \"Uses multi-threaded COPY SQL for data load.\",
     \"tags\": [\"Java\", \"time-series\"],
@@ -76,7 +77,7 @@ echo "{
     \"result\": [
     $results
     ]
-}" > results/m6a.4xlarge.7_3_7.json
+}" > results/$instance_type.7_3_7.json
 
-cat results/m6a.4xlarge.7_3_7.json
+cat results/$instance_type.7_3_7.json
 
