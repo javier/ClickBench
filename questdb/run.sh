@@ -2,8 +2,8 @@
 
 TRIES=3
 
-questdb/bin/questdb.sh stop
-questdb/bin/questdb.sh start
+questdb/bin/questdb.sh stop -t 8_2_1
+questdb/bin/questdb.sh start -t 8_2_1
 sleep 5
 
 cat queries.sql | while read -r query; do
@@ -17,4 +17,4 @@ cat queries.sql | while read -r query; do
     done;
 done;
 
-questdb/bin/questdb.sh stop
+questdb/bin/questdb.sh stop -t 8_2_1
